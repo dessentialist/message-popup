@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const commands = [
-        'cat about.txt',
+        'intro.txt',
+        'name.txt',
         'ls -la',
         'whoami',
         'pwd'
@@ -34,11 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function executeCommand(command) {
         let response = '';
         switch(command) {
-            case 'cat about.txt':
-                response = 'This is a terminal-style webpage demonstration.';
+            case 'intro.txt':
+                response = 'Hello World! 👋';
+                break;
+            case 'name.txt':
+                response = 'My name is Darpan. Welcome!';
                 break;
             case 'ls -la':
-                response = 'drwxr-xr-x 2 user user 4096 Apr 8 00:00 .\ndrwxr-xr-x 3 user user 4096 Apr 8 00:00 ..\n-rw-r--r-- 1 user user 1000 Apr 8 00:00 about.txt';
+                response = 'Nice to meet you 🥂';
                 break;
             case 'whoami':
                 response = 'user';
