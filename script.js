@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const commands = [
-        'intro.txt',
-        'name.txt',
-        'ls -la',
-        'whoami',
-        'pwd'
+        'pwd',
+        'cd .',
+        'status',
     ];
     
     let currentCommand = 0;
@@ -35,20 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function executeCommand(command) {
         let response = '';
         switch(command) {
-            case 'intro.txt':
+            case 'pwd':
                 response = 'Hello World! 👋';
                 break;
-            case 'name.txt':
+            case 'cd .':
                 response = 'My name is Darpan. Welcome!';
                 break;
-            case 'ls -la':
+            case 'status':
                 response = 'Nice to meet you 🥂';
-                break;
-            case 'whoami':
-                response = 'user';
-                break;
-            case 'pwd':
-                response = '/home/user';
                 break;
         }
         
