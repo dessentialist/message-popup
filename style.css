@@ -1,7 +1,7 @@
 body {
     background-color: #1a1a1a;
     color: #33ff33;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
     margin: 0;
     padding: 2rem;
     height: 100vh;
@@ -13,51 +13,91 @@ body {
 .terminal {
     max-width: 800px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(0, 255, 0, 0.1);
+    overflow-y: auto;
+    max-height: 80vh;
+    position: relative;
+}
+
+.command-line {
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(51, 255, 51, 0.1);
+    display: flex;
+    align-items: center;
+    z-index: 10;
 }
 
 .prompt {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.user {
-    color: #33ff33;
+    color: #00ff00;
     margin-right: 0.5rem;
+    font-weight: 500;
+    text-shadow: 0 0 2px rgba(51, 255, 51, 0.3);
 }
 
 .command {
-    color: #ffffff;
+    color: #f0f0f0;
     min-width: 1px;
+    font-weight: 400;
+    white-space: pre;
 }
 
-.command-response {
-    color: #33ff33;
-    margin-bottom: 0.5rem;
-    padding-left: 1rem;
+.output-container {
+    padding-top: 0.5rem;
+}
+
+.response {
+    color: #b4b4b4;
+    margin: 0.25rem 0 1rem 1.5rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .cursor {
     display: inline-block;
-    width: 8px;
-    height: 16px;
+    width: 0.6em;
+    height: 1.2em;
     background-color: #33ff33;
     margin-left: 2px;
-    animation: blink 1.2s infinite;
-}
-
-.output {
-    color: #ffffff;
-    line-height: 1.5;
-    white-space: pre-wrap;
+    animation: blink 1.2s steps(2) infinite;
+    vertical-align: -2px;
+    opacity: 0.8;
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
+    0%, 100% { opacity: 0.8; }
     50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 0.9; transform: translateY(0); }
+}
+
+/* Add subtle scan lines effect */
+.terminal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    opacity: 0.3;
 }
   

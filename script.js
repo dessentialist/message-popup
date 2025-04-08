@@ -1,68 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
     const commands = [
-        'pwd',
-        'cd .',
-        'status',
+        { cmd: 'pwd', delay: 500 },
+        { cmd: 'cd .', delay: 500 },
+        { cmd: 'ls', delay: 500 }
     ];
     
     let currentCommand = 0;
-    const output = document.querySelector('.output');
     const commandElement = document.querySelector('.command');
+    const outputContainer = document.querySelector('.output-container');
     
-    function typeCommand() {
-        if (currentCommand < commands.length) {
-            const command = commands[currentCommand];
-            let i = 0;
-            
-            const typeInterval = setInterval(() => {
-                if (i < command.length) {
-                    commandElement.textContent = command.substring(0, i + 1);
-                    i++;
-                } else {
-                    clearInterval(typeInterval);
-                    setTimeout(() => {
-                        executeCommand(command);
-                        currentCommand++;
-                        if (currentCommand < commands.length) {
-                            setTimeout(typeCommand, 1000);
-                        }
-                    }, 500);
-                }
-            }, 100);
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typeCommand(text, element, speed = 50) {
+        element.textContent = '';
+        for (let i = 0; i < text.length; i++) {
+            element.textContent = text.substring(0, i + 1);
+            await sleep(speed);
         }
     }
-    
-    function executeCommand(command) {
+
+    async function clearCommand(element, speed = 50) {
+        const text = element.textContent;
+        for (let i = text.length; i >= 0; i--) {
+            element.textContent = text.substring(0, i);
+            await sleep(speed);
+        }
+    }
+
+    async function executeCommand(command) {
         let response = '';
-        switch(command) {
+        switch(command.cmd) {
             case 'pwd':
                 response = 'Hello World! 👋';
                 break;
             case 'cd .':
                 response = 'My name is Darpan. Welcome!';
                 break;
-            case 'status':
-                response = 'Nice to meet you 🥂! 🚀';
+            case 'ls':
+                response = `Nice to meet you 🥂`;
                 break;
         }
         
-        // Clear the current command
-        commandElement.textContent = '';
-        
-        // Create response element
+        // Create and animate response element
         const responseElement = document.createElement('div');
-        responseElement.className = 'command-response';
+        responseElement.className = 'response';
         responseElement.textContent = response;
-        output.appendChild(responseElement);
+        outputContainer.appendChild(responseElement);
         
-        // Add new prompt
-        const newPrompt = document.createElement('div');
-        newPrompt.className = 'prompt';
-        newPrompt.innerHTML = '<span class="user">home:$</span><span class="command"></span><span class="cursor">|</span>';
-        output.appendChild(newPrompt);
+        // Scroll to the bottom smoothly
+        outputContainer.scrollTop = outputContainer.scrollHeight;
     }
     
-    // Start the typing effect
-    typeCommand();
+    async function runCommands() {
+        for (const command of commands) {
+            // Type the command
+            await sleep(command.delay);
+            await typeCommand(command.cmd, commandElement);
+            await sleep(600);
+            
+            // Execute and show response
+            await executeCommand(command);
+            await sleep(600);
+            
+            // Clear the command with backspace effect
+            await clearCommand(commandElement);
+        }
+        
+        // Leave the cursor blinking at the end
+        commandElement.textContent = '';
+    }
+    
+    // Start the command sequence once
+    runCommands();
 });
   
