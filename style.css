@@ -1,0 +1,52 @@
+body {
+    background-color: #1a1a1a;
+    color: #33ff33;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 2rem;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terminal {
+    max-width: 800px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.prompt {
+    color: #33ff33;
+    margin-bottom: 1rem;
+}
+
+.user {
+    color: #33ff33;
+}
+
+.command {
+    color: #ffffff;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #33ff33;
+    animation: blink 1s infinite;
+}
+
+.output {
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+  
